@@ -1,15 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Hlpr</title>
-</head>
-<body>
-    <h1>HLPR</h1>
-    <p id="date">TODAYS DATE: Loading</p>
-    <p>TODAYS EVENTS</p>
-    <div id="events"></div>
-    <script type="module" src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --font-general-sans: "Clash Grotesk", sans-serif;
+        }
+
+        h1 {
+            @apply font-bold text-3xl;
+        }
+
+        #date {
+            @apply text-sm text-zinc-50/35;
+        }
+        #schoolday {
+            @apply text-xl font-semibold leading-none;
+        }
+
+        #timeleft-container {
+            @apply py-16 flex flex-col items-center justify-center gap-0;
+        }
+
+        #timeleft {
+            @apply text-8xl font-extrabold leading-none;
+        }
+        #period {
+            @apply text-xl;
+        }
+
+        #events {
+            @apply w-1/2;
+        }
+
+        .event {
+            @apply bg-zinc-50/5 border border-zinc-50/15 text-left px-6 py-3 rounded;
+        }
+
+        .summary {
+            @apply font-bold text-xl flex gap-2 items-center;
+        }
+
+        .info {
+            display: none;
+        }
+
+        .event:hover > .info {
+            display:flex;
+            flex-direction: column;
+        }
+
+        .time {
+            @apply text-xs text-zinc-50/25;
+        }
+        .description {
+            @apply text-sm text-zinc-50/80;
+        }
+
+        .error {
+            color: #b00;
+            font-weight: 700;
+        }
+        @keyframes marquee-content {
+            /* Element one fully ON screen at left-edge of container. */
+            from {
+                transform: translateX( -100% );
+            }
+            /* Element one fully OFF screen (just beyond left-ledge of container). */
+            to {
+                transform: translateX( -200% );
+            }
+        }
+        
+        .marquee {
+            position: fixed;
+            display: flex;
+            left: 0;
+            top: 0;
+            transform: rotate(-90deg);
+            transform-origin: left top;
+            width: 100vh; /* full width after rotation */
+        }
+
+        .marquee > * {
+            font-size: 20vh; /* adjust size as needed */
+            font-weight: bold;
+            white-space: nowrap;
+            line-height: 1;
+            animation: marquee-content 5s linear infinite;
+        }
+    </style>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@1&display=swap" rel="stylesheet">
+
+<body class="bg-zinc-950 text-zinc-50 font-general-sans font-medium relative w-full min-h-screen pl-[20vh] pr-[10vh] py-6">
+    <nav class="marquee">
+        <p>WLHS HLPR</p>
+        <p>WLHS HLPR</p>
+    </nav>
+
+    <div class="w-1/2 min-w-96 h-5/6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-900 flex flex-col items-center text-center">
+        <p id="date">Todays Date: Loading</p>
+        <p id="schoolday"></p>
+        
+        <div id="timeleft-container">
+            <p id="period">Period 3</p>
+            <p id="timeleft">56m 10s</p>
+            <p class="text-zinc-50/65">until class ends</p>
+        </div>
+
+        <p>Events Today</p>
+        <div id="events"></div>
+    </div>
+
+    <script src="./main.js"></script>
 </body>
+
 </html>
