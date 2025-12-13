@@ -16,50 +16,64 @@
         }
 
         #date {
-            @apply text-sm text-zinc-50/35;
+            @apply text-zinc-50/35;
         }
         #schoolday {
-            @apply text-xl font-semibold leading-none;
+            @apply text-3xl font-semibold leading-none;
+        }
+        #period {
+            @apply text-lg;
         }
 
         #timeleft-container {
-            @apply py-16 flex flex-col items-center justify-center gap-0;
+            @apply mt-4 mb-6 shadow-xl flex flex-col items-center justify-center gap-0 bg-zinc-50/2 border backdrop-blur-lg border-zinc-50/5 rounded-xl w-128 h-64;
+        }
+
+        #event-container {
+            @apply p-8 shadow-xl flex flex-col items-center justify-center gap-0 bg-zinc-50/2 border backdrop-blur-lg border-zinc-50/5 rounded-xl w-128;
         }
 
         #timeleft {
-            @apply text-8xl font-extrabold leading-none;
-        }
-        #period {
-            @apply text-xl;
+            @apply text-8xl font-extrabold leading-[0.8];
         }
 
         #events {
-            @apply w-1/2;
-        }
-
-        .event {
-            @apply bg-zinc-50/5 border border-zinc-50/15 text-left px-6 py-3 rounded;
+            @apply w-full max-h-64 overflow-y-auto overflow-x-hidden;
         }
 
         .summary {
-            @apply font-bold text-xl flex gap-2 items-center;
+            @apply font-bold text-xl flex gap-2 items-center justify-between;
+        }
+
+        .event {
+            @apply bg-zinc-950/5 border overflow-hidden max-h-14 backdrop-blur-lg border-zinc-50/15 text-left px-6 py-3 rounded-md;
+            transition-property: max-height;
+            transition-duration: 300ms;
         }
 
         .info {
-            display: none;
-        }
-
-        .event:hover > .info {
             display:flex;
+            transition-property: opacity;
+            transition-duration: 500ms;
+            opacity: 0;
             flex-direction: column;
         }
 
+        .event:hover {
+            max-height: 100%;
+        }
+
+        .event:hover > .info {
+            opacity: 1;
+        }
+
         .time {
-            @apply text-xs text-zinc-50/25;
+            @apply text-sm text-zinc-50/30;
         }
         .description {
             @apply text-sm text-zinc-50/80;
         }
+
 
         .error {
             color: #b00;
@@ -84,6 +98,7 @@
             transform: rotate(-90deg);
             transform-origin: left top;
             width: 100vh; /* full width after rotation */
+            user-select: none;
         }
 
         .marquee > * {
@@ -96,24 +111,31 @@
     </style>
     <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@1&display=swap" rel="stylesheet">
 
-<body class="bg-zinc-950 text-zinc-50 font-general-sans font-medium relative w-full min-h-screen pl-[20vh] pr-[10vh] py-6">
-    <nav class="marquee">
+<body class="bg-zinc-950 bg-radial from-zinc-50/5 to-transparent text-zinc-50 font-general-sans font-medium relative w-full min-h-screen pl-[20vh] pr-[10vh] py-6">
+    <nav class="marquee text-zinc-50/5">
         <p>WLHS HLPR</p>
         <p>WLHS HLPR</p>
     </nav>
 
-    <div class="w-1/2 min-w-96 h-5/6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-900 flex flex-col items-center text-center">
-        <p id="date">Todays Date: Loading</p>
+    <div class="h-3/4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col items-center  text-center">
+        <p id="date">1/1/2000</p>
         <p id="schoolday"></p>
         
         <div id="timeleft-container">
-            <p id="period">Period 3</p>
-            <p id="timeleft">56m 10s</p>
-            <p id="until" class="text-zinc-50/65">until class ends</p>
+            <p id="period">None</p>
+            <p id="timeleft">0m 0s</p>
+            <div class="w-64 border border-zinc-50/80 h-3.25 p-1 rounded-full mb-2">
+                <div id="progress" class="w-1/2 bg-zinc-50/80 h-full rounded-full transition-width duration-300"></div>
+            </div>
+            <p id="until" class="text-zinc-50/50 text-lg">until school ends</p>
+
         </div>
 
-        <p>Events Today</p>
-        <div id="events"></div>
+        <p class="text-2xl font-semibold mt-6 mb-2">Events Today</p>
+        <div id="event-container">
+            
+            <div id="events"></div>
+        </div>
     </div>
 
     <script src="./main.js"></script>
