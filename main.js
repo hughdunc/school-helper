@@ -157,6 +157,7 @@ function buildScheduleForToday(){
 		{ start: t(12,9), end: t(13,34), a: "Period 3", b: "Period 7" },
 		{ start: t(13,34), end: t(13,40), a: "Passing", b: "Passing" },
 		{ start: t(13,40), end: t(15,5), a: "Period 4", b: "Period 8" },
+		{ start: t(15,5), end: t(15,5), a: "school ends", b: "school ends" },
 	];
 }
 function getActivePeriod(schedule) {
